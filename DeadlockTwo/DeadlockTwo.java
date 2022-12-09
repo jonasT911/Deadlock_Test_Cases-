@@ -6,10 +6,12 @@ public class DeadlockTwo implements Runnable {
 
 	static Lock a = new Lock();
 	static Lock b = new Lock(); // the locks
-
+	static Lock c = new Lock();
 	public static void main(String[] args) {
+		for(int i=0;i<100;i++) {
 		new DeadlockTwo("First", true);
 		new DeadlockTwo("Second", false);
+		}
 	}
 
 	boolean ab; // do we grab them in the order "ab"?
@@ -20,6 +22,7 @@ public class DeadlockTwo implements Runnable {
 	}
 
 	public synchronized void run() {
+		synchronized(c) {
 		if (ab) {
 			LockA A=new LockA();
 					A.foo(); // recursively calls LockB.bar, obtaining lock on B
@@ -27,7 +30,7 @@ public class DeadlockTwo implements Runnable {
 			LockB B=new LockB();
 			B.foo();// recursively calls LockA.bar, obtaining lock on A
 		}
-	}
+	}}
 
 		class LockA{
 			public void foo() {
@@ -38,7 +41,7 @@ public class DeadlockTwo implements Runnable {
 			}
 			public void bar() {
 				synchronized(a) {
-					
+					System.out.println("a");
 				}
 			}
 		}
@@ -52,7 +55,7 @@ public class DeadlockTwo implements Runnable {
 			}
 			public void bar() {
 				synchronized(b) {
-					
+					System.out.println("b");
 				}
 			}
 		}

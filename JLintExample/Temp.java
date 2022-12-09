@@ -21,8 +21,8 @@ class A {
 }
 
 class B {
-	public static volatile A ap=new A();
-	public static volatile B bp=new B();
+	public static volatile A ap = new A();
+	public static volatile B bp = new B();
 
 	public synchronized void g1() {
 		bp.g1();

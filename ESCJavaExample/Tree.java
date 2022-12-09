@@ -1,6 +1,6 @@
 package ESCJavaExample;
 
-public class Tree {
+public class Tree implements Runnable{
 	public /* @ monitored */ Tree left, right;
 	public /* @ monitored non_null */ Thing contents;
 
@@ -28,9 +28,9 @@ public class Tree {
 // / \ / \
 // ... x ... v
 // / \ --> / \
-// v y u x
-// / \ / \
-// u w w y
+// v y     u x
+// / \     / \
+// u w     w y
 //
 		Tree x = this.right;
 		if (x == null)
@@ -57,5 +57,12 @@ public class Tree {
 				}
 			} // line (e)
 		}
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		wiggleWoggle();
+		wiggleWoggle();
 	}
 }
